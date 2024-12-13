@@ -20,8 +20,8 @@ class WeatherServiceProvider extends ServiceProvider
     {
         $this->app->singleton(WeatherAggregatorService::class, function ($app) {
             return new WeatherAggregatorService([
-                new WeatherBitService(config('services.weather.api_key_weatherbit')),
-                new WeatherApiService(config('services.weather.api_key_weatherapi')),
+                new WeatherBitService(config('services.weather.weatherbit.key')),
+                new WeatherApiService(config('services.weather.weatherapi.key')),
             ]);
         });
     }
