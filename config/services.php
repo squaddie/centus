@@ -14,6 +14,10 @@ return [
     |
     */
 
+    /**
+     * Api keys in weather array stay here only because it is test task,
+     * in real world it should be in the .env or better in AWS SSM
+     */
     'weather' => [
         'weatherbit' => [
             'key' => '017d7926ac6f4bbe9190a1ff606589eb'
