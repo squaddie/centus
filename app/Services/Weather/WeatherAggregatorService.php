@@ -2,7 +2,7 @@
 
 namespace App\Services\Weather;
 
-use App\ValueObjects\WeatherDataValueObject;
+use App\Entities\WeatherDataEntity;
 
 /**
  * Class WeatherAggregatorService
@@ -23,9 +23,9 @@ class WeatherAggregatorService
 
     /**
      * @param string $city
-     * @return WeatherDataValueObject
+     * @return WeatherDataEntity
      */
-    public function getWeatherWithAverage(string $city): WeatherDataValueObject
+    public function getWeatherWithAverage(string $city): WeatherDataEntity
     {
         $weatherData = [];
 
@@ -38,9 +38,9 @@ class WeatherAggregatorService
 
     /**
      * @param array $weatherData
-     * @return WeatherDataValueObject
+     * @return WeatherDataEntity
      */
-    protected function calculateAverage(array $weatherData): WeatherDataValueObject
+    protected function calculateAverage(array $weatherData): WeatherDataEntity
     {
         $city = $weatherData[0]->city;
 
@@ -48,7 +48,7 @@ class WeatherAggregatorService
         $averagePrecipitation = $this->average(array_map(fn($data) => $data->precipitation, $weatherData));
         $averageUvIndex = $this->average(array_map(fn($data) => $data->uvIndex, $weatherData));
 
-        return new WeatherDataValueObject(
+        return new WeatherDataEntity(
             $city,
             $averageTemperature,
             $averagePrecipitation,

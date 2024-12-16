@@ -3,7 +3,7 @@
 namespace App\Services\Weather;
 
 use App\Exceptions\WeatherBitRequestFailedException;
-use App\ValueObjects\WeatherDataValueObject;
+use App\Entities\WeatherDataEntity;
 use Exception;
 use Illuminate\Support\Facades\Http;
 
@@ -18,10 +18,10 @@ class WeatherBitService extends WeatherService
 
     /**
      * @param string $city
-     * @return WeatherDataValueObject
+     * @return WeatherDataEntity
      * @throws Exception
      */
-    public function getWeather(string $city): WeatherDataValueObject
+    public function getWeather(string $city): WeatherDataEntity
     {
         $response = Http::get($this->weatherUrl, [
             'city' => $city,
@@ -37,15 +37,15 @@ class WeatherBitService extends WeatherService
 
     /**
      * @param array $response
-     * @return WeatherDataValueObject
+     * @return WeatherDataEntity
      */
-    protected function prepareResponse(array $response): WeatherDataValueObject
+    protected function prepareResponse(array $response): WeatherDataEntity
     {
-        return new WeatherDataValueObject(
-            $response['data']['city'],
-            $response['data']['temperature'],
-            $response['data']['precip'],
-            $response['data']['uv']
+        return new WeatherDataEntity(
+            $response['data'][0]['city_name'],
+            $response['data'][0]['app_temp'],
+            $response['data'][0]['precip'],
+            $response['data'][0]['uv']
         );
     }
 }

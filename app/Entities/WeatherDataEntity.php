@@ -1,34 +1,29 @@
 <?php
 
-namespace App\ValueObjects;
+namespace App\Entities;
 
-class WeatherDataValueObject
+/**
+ * Class WeatherDataEntity
+ * @package App\Entities\WeatherDataEntity
+ */
+class WeatherDataEntity
 {
     /**
      * @param string $city
      * @param float $temperature
      * @param float $precipitation
      * @param float $uvIndex
+     * @param bool $isUVThresholdReached
+     * @param bool $isPrecipitationThresholdReached
      */
     public function __construct(
         public string $city,
         public float $temperature,
         public float $precipitation,
-        public float $uvIndex
+        public float $uvIndex,
+        public bool $isUVThresholdReached = false,
+        public bool $isPrecipitationThresholdReached = false,
     ) {}
-
-    /**
-     * @return array
-     */
-    public function toArray(): array
-    {
-        return [
-            'city' => $this->city,
-            'temperature' => $this->temperature,
-            'precipitation' => $this->precipitation,
-            'uv_index' => $this->uvIndex,
-        ];
-    }
 
     /**
      * @return float
@@ -38,8 +33,43 @@ class WeatherDataValueObject
         return  $this->uvIndex;
     }
 
+    /**
+     * @return float
+     */
     public function getPrecipitation(): float
     {
         return $this->precipitation;
+    }
+
+    /**
+     * @return void
+     */
+    public function setPrecipitationThresholdReachedFlag(): void
+    {
+        $this->isPrecipitationThresholdReached = true;
+    }
+
+    /**
+     * @return void
+     */
+    public function setUVThresholdReachedFlag(): void
+    {
+        $this->isUVThresholdReached = true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsUVThresholdReachedFlag(): bool
+    {
+        return $this->isUVThresholdReached;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsPrecipitationThresholdReachedFlag(): bool
+    {
+        return $this->isPrecipitationThresholdReached;
     }
 }

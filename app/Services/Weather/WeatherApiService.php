@@ -3,7 +3,7 @@
 namespace App\Services\Weather;
 
 use App\Exceptions\WeatherApiRequestFailedException;
-use App\ValueObjects\WeatherDataValueObject;
+use App\Entities\WeatherDataEntity;
 use Illuminate\Support\Facades\Http;
 
 /**
@@ -17,10 +17,10 @@ class WeatherApiService extends WeatherService
 
     /**
      * @param string $city
-     * @return WeatherDataValueObject
+     * @return WeatherDataEntity
      * @throws WeatherApiRequestFailedException
      */
-    public function getWeather(string $city): WeatherDataValueObject
+    public function getWeather(string $city): WeatherDataEntity
     {
         $response = Http::get($this->weatherUrl, [
             'key' => $this->apiKey,
@@ -36,13 +36,11 @@ class WeatherApiService extends WeatherService
 
     /**
      * @param array $response
-     * @return WeatherDataValueObject
+     * @return WeatherDataEntity
      */
-    protected function prepareResponse(array $response): WeatherDataValueObject
+    protected function prepareResponse(array $response): WeatherDataEntity
     {
-        //precip_mm = осадки
-        //uv = уровень ультрафиолета
-        return new WeatherDataValueObject(
+        return new WeatherDataEntity(
             $response['location']['name'] ?? null,
             $response['current']['temp_c'] ?? null,
             $response['current']['precip_mm'] ?? 0,

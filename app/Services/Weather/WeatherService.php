@@ -2,7 +2,7 @@
 
 namespace App\Services\Weather;
 
-use App\ValueObjects\WeatherDataValueObject;
+use App\Entities\WeatherDataEntity;
 
 /**
  * Class WeatherService
@@ -23,14 +23,14 @@ abstract class WeatherService
 
     /**
      * @param string $city
-     * @return WeatherDataValueObject
+     * @return WeatherDataEntity
      */
-    abstract public function getWeather(string $city): WeatherDataValueObject;
+    abstract public function getWeather(string $city): WeatherDataEntity;
 
     /**
      * @param array $response
-     * @return WeatherDataValueObject
+     * @return WeatherDataEntity
      */
-    abstract protected function prepareResponse(array $response): WeatherDataValueObject;
+    abstract protected function prepareResponse(array $response): WeatherDataEntity;
 }
 
