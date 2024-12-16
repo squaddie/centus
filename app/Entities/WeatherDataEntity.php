@@ -29,4 +29,17 @@ class WeatherDataValueObject
             'uv_index' => $this->uvIndex,
         ];
     }
+
+    /**
+     * @return float
+     */
+    public function getUVIndex(): float
+    {
+        return  $this->uvIndex;
+    }
+
+    public function getPrecipitation(): float
+    {
+        return $this->precipitation;
+    }
 }
