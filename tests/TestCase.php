@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use ReflectionClass;
 use ReflectionException;
@@ -14,7 +15,7 @@ abstract class TestCase extends BaseTestCase
      * @param string $methodName Method name to all call.
      * @param array $parameters Array of parameters to be pass into method.
      * @return mixed Method return.
-     *@throws ReflectionException
+     * @throws ReflectionException
      */
     protected function invokeMethod(&$object, string $methodName, array $parameters = [])
     {
@@ -23,5 +24,17 @@ abstract class TestCase extends BaseTestCase
         $method->setAccessible(true);
 
         return $method->invokeArgs($object, $parameters);
+    }
+
+    /**
+     * @param Model $model
+     * @param array $original
+     */
+    protected function setModelOriginal(Model $model, array $original): void
+    {
+        $reflection = new ReflectionClass($model);
+        $property = $reflection->getProperty('original');
+        $property->setAccessible(true);
+        $property->setValue($model, $original);
     }
 }

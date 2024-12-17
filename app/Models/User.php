@@ -31,6 +31,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'chat_id',
+        'channel',
         'password',
     ];
     /** @var array $hidden */
