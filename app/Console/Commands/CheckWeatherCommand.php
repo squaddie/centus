@@ -24,7 +24,7 @@ class CheckWeatherCommand extends Command
     public function handle(City $city): void
     {
         foreach ($city->getCitiesWithAttachedUsers() as $data) {
-            dispatch(new UsersWeatherJob($data));
+            UsersWeatherJob::dispatch($data);
         }
     }
 }
