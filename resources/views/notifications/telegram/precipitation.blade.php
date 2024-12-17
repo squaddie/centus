@@ -1,1 +1,1 @@
-Current precipitation are 55mm, which is greater than 25mm that you have set as a notification threshold.
+The current precipitation for the city of {{ $city }} is {{ $value }}mm.

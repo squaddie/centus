@@ -17,6 +17,6 @@ class ScheduleServiceProvider extends ServiceProvider
      */
     public function schedule(Schedule $schedule): void
     {
-        $schedule->command('app:check-weather-command')->dailyAt('09:00');
+        $schedule->command('app:check-weather-command')->everyTwoHours();
     }
 }

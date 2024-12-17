@@ -4,16 +4,19 @@ namespace App\Notifications;
 
 use App\Broadcasting\TelegramNotificationChannel;
 use App\Entities\WeatherDataEntity;
+use App\Exceptions\TelegramNotificationTemplateException;
+use App\Exceptions\TelegramNotificationWeatherException;
 use App\Models\User;
 use Exception;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 
 /**
  * Class TelegramNotification
  * @package App\Notifications\TelegramNotification
  */
-class TelegramNotification extends Notification
+class TelegramNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -47,6 +50,7 @@ class TelegramNotification extends Notification
             $this->getNotificationTemplate(),
             [
                 'value' => $this->getNotificationWeatherValue(),
+                'city' => $this->weatherDataEntity->getCity()
             ])
             ->render();
 
@@ -59,7 +63,7 @@ class TelegramNotification extends Notification
 
     /**
      * @return string
-     * @throws Exception
+     * @throws TelegramNotificationTemplateException
      */
     protected function getNotificationTemplate(): string
     {
@@ -72,12 +76,12 @@ class TelegramNotification extends Notification
             return 'notifications.telegram.uv';
         }
 
-        throw new Exception();
+        throw new TelegramNotificationTemplateException();
     }
 
     /**
      * @return float
-     * @throws Exception
+     * @throws TelegramNotificationWeatherException
      */
     protected function getNotificationWeatherValue(): float
     {
@@ -89,6 +93,6 @@ class TelegramNotification extends Notification
             return $this->weatherDataEntity->getUVIndex();
         }
 
-        throw new Exception();
+        throw new TelegramNotificationWeatherException();
     }
 }

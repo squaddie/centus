@@ -1,1 +1,2 @@
-current UV index are 7, which is greater than 5 that you have set as a notification threshold.
+The UV index is {{ $value }} for the city of {{ $city }}.
+

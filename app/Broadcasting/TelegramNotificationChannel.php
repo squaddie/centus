@@ -32,7 +32,7 @@ class TelegramNotificationChannel
      */
     protected function getUrl(array $queryParams): string
     {
-        $baseUrl = sprintf(self::TELEGRAM_URL, '7642896575:AAEEa4ixp1fLwqB0Mnyi0TEKU1unaTEP28A');
+        $baseUrl = sprintf(self::TELEGRAM_URL, config('services.telegram.key'));
 
         return $baseUrl . '?' . http_build_query($queryParams);
     }

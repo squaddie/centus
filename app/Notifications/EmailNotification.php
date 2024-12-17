@@ -3,9 +3,12 @@
 namespace App\Notifications;
 
 use App\Entities\WeatherDataEntity;
+use App\Exceptions\EmailNotificationTemplateException;
+use App\Exceptions\EmailNotificationWeatherException;
 use App\Models\User;
 use Exception;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -13,8 +16,9 @@ use Illuminate\Notifications\Notification;
  * Class EmailNotification
  * @package App\Notifications\EmailNotification
  */
-class EmailNotification extends Notification
+class EmailNotification extends Notification implements ShouldQueue
 {
+    /** @uses Queueable */
     use Queueable;
 
     /** @var WeatherDataEntity $weatherDataEntity */
@@ -47,14 +51,16 @@ class EmailNotification extends Notification
         return (new MailMessage)
             ->subject('weather conditions')
             ->view(
-                $this->getNotificationTemplate(), [
-                'value' => $this->getNotificationWeatherValue(),
-            ]);
+                $this->getNotificationTemplate(),
+                [
+                    'value' => $this->getNotificationWeatherValue(),
+                    'city' => $this->weatherDataEntity->getCity()
+                ]);
     }
 
     /**
      * @return string
-     * @throws Exception
+     * @throws EmailNotificationTemplateException
      */
     protected function getNotificationTemplate(): string
     {
@@ -66,12 +72,12 @@ class EmailNotification extends Notification
             return 'notifications.email.uv';
         }
 
-        throw new Exception();
+        throw new EmailNotificationTemplateException();
     }
 
     /**
      * @return float
-     * @throws Exception
+     * @throws EmailNotificationWeatherException
      */
     protected function getNotificationWeatherValue(): float
     {
@@ -83,6 +89,6 @@ class EmailNotification extends Notification
             return $this->weatherDataEntity->getUVIndex();
         }
 
-        throw new Exception();
+        throw new EmailNotificationWeatherException();
     }
 }

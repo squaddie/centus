@@ -2,11 +2,11 @@
 
 namespace App\Factories;
 
+use App\Exceptions\NotificationFactoryException;
 use App\Models\User;
 use App\Notifications\EmailNotification;
 use App\Notifications\TelegramNotification;
 use App\Entities\WeatherDataEntity;
-use Exception;
 use Illuminate\Notifications\Notification;
 
 /**
@@ -19,7 +19,7 @@ class NotificatorFactory
      * @param User $user
      * @param WeatherDataEntity $weatherDataValueObject
      * @return Notification
-     * @throws Exception
+     * @throws NotificationFactoryException
      */
     public function getInstance(User $user, WeatherDataEntity $weatherDataValueObject): Notification
     {
@@ -31,6 +31,6 @@ class NotificatorFactory
             return new TelegramNotification($weatherDataValueObject);
         }
 
-        throw new Exception();
+        throw new NotificationFactoryException();
     }
 }

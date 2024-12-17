@@ -26,6 +26,9 @@ return [
             'key' => 'e3a4b6024692425f921152040241312'
         ]
     ],
+    'telegram' => [
+        'key' => '7642896575:AAEEa4ixp1fLwqB0Mnyi0TEKU1unaTEP28A',
+    ],
 
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),

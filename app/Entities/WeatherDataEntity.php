@@ -23,7 +23,18 @@ class WeatherDataEntity
         public float $uvIndex,
         public bool $isUVThresholdReached = false,
         public bool $isPrecipitationThresholdReached = false,
-    ) {}
+    )
+    {
+
+    }
+
+    /**
+     * @return string
+     */
+    public function getCity(): string
+    {
+        return  $this->city;
+    }
 
     /**
      * @return float

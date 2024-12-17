@@ -12,6 +12,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class City extends Model
 {
+    /** @var array $fillable */
+    public $fillable = [
+        'name',
+    ];
+
     /**
      * @return BelongsToMany
      */
@@ -28,5 +33,14 @@ class City extends Model
     public function getCitiesWithAttachedUsers(): Collection
     {
         return $this->has('users')->with(['users'])->get();
+    }
+
+    /**
+     * @param string $cityName
+     * @return City
+     */
+    public function getCityByName(string $cityName): City
+    {
+        return $this->firstOrCreate(['name' => $cityName]);
     }
 }
