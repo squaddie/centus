@@ -17,12 +17,12 @@ class WeatherDataEntity
      * @param bool $isPrecipitationThresholdReached
      */
     public function __construct(
-        public string $city,
-        public float $temperature,
-        public float $precipitation,
-        public float $uvIndex,
-        public bool $isUVThresholdReached = false,
-        public bool $isPrecipitationThresholdReached = false,
+        private string $city,
+        private float $temperature,
+        private float $precipitation,
+        private float $uvIndex,
+        private bool $isUVThresholdReached = false,
+        private bool $isPrecipitationThresholdReached = false,
     )
     {
 
