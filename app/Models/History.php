@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -11,6 +12,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class History extends Model
 {
+    /** @uses HasFactory */
+    use HasFactory;
+
     /** @var array $fillable */
     protected $fillable = [
         'u_id',

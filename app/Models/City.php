@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
 
 /**
  * Class City
@@ -12,6 +13,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class City extends Model
 {
+    /** @uses HasFactory */
+    use HasFactory;
+
     /** @var array $fillable */
     public $fillable = [
         'name',
