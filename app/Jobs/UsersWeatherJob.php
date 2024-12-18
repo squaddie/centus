@@ -53,7 +53,6 @@ class UsersWeatherJob implements ShouldQueue
                 $wd->setUVThresholdReachedFlag();
                 $user->notify($notificatorFactory->getInstance($user, $wd));
                 $historyPayload = $this->getHistoryPayload($user, $wd, WeatherTypeEnum::TYPE_UV->value);
-                logger(json_encode($historyPayload->toArray()));
                 $history->log($historyPayload->toArray());
             }
 
@@ -62,7 +61,6 @@ class UsersWeatherJob implements ShouldQueue
                 $wd->setPrecipitationThresholdReachedFlag();
                 $user->notify($notificatorFactory->getInstance($user, $wd));
                 $historyPayload = $this->getHistoryPayload($user, $wd, WeatherTypeEnum::TYPE_PRECIPITATION->value);
-                logger(json_encode($historyPayload->toArray()));
                 $history->log($historyPayload->toArray());
             }
         }

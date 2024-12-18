@@ -42,11 +42,11 @@ class WeatherAggregatorService
      */
     protected function calculateAverage(array $weatherData): WeatherDataEntity
     {
-        $city = $weatherData[0]->city;
+        $city = $weatherData[0]->getCity();
 
-        $averageTemperature = $this->average(array_map(fn($data) => $data->temperature, $weatherData));
-        $averagePrecipitation = $this->average(array_map(fn($data) => $data->precipitation, $weatherData));
-        $averageUvIndex = $this->average(array_map(fn($data) => $data->uvIndex, $weatherData));
+        $averageTemperature = $this->average(array_map(fn($data) => $data->getTemperature(), $weatherData));
+        $averagePrecipitation = $this->average(array_map(fn($data) => $data->getPrecipitation(), $weatherData));
+        $averageUvIndex = $this->average(array_map(fn($data) => $data->getUVIndex(), $weatherData));
 
         return new WeatherDataEntity(
             $city,
