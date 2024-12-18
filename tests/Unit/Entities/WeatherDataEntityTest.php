@@ -42,8 +42,8 @@ class WeatherDataEntityTest extends TestCase
         $this->temperature = $this->faker->randomDigitNotNull();
         $this->precipitation = $this->faker->randomFloat();
         $this->uvIndex = $this->faker->randomFloat();
-        $this->isUVThresholdReached = $this->faker->boolean();
-        $this->isPrecipitationThresholdReached = $this->faker->boolean();
+        $this->isUVThresholdReached = true;
+        $this->isPrecipitationThresholdReached = true;
         $this->entity = new WeatherDataEntity(
             $this->city,
             $this->temperature,
@@ -62,6 +62,15 @@ class WeatherDataEntityTest extends TestCase
     function it_should_return_city()
     {
         $this->assertEquals($this->entity->getCity(), $this->city);
+    }
+
+    /**
+     * @test
+     * @covers ::getTemperature
+     */
+    function it_should_return_temperature()
+    {
+        $this->assertEquals($this->entity->getTemperature(), $this->temperature);
     }
 
     /**

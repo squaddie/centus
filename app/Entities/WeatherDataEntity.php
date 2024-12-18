@@ -39,6 +39,14 @@ class WeatherDataEntity
     /**
      * @return float
      */
+    public function getTemperature(): float
+    {
+        return  $this->temperature;
+    }
+
+    /**
+     * @return float
+     */
     public function getUVIndex(): float
     {
         return  $this->uvIndex;
