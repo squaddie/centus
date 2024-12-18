@@ -21,6 +21,8 @@ class EmailNotification extends Notification implements ShouldQueue
     /** @uses Queueable */
     use Queueable;
 
+    const SUBJECT = 'Weather conditions';
+
     /** @var WeatherDataEntity $weatherDataEntity */
     protected WeatherDataEntity $weatherDataEntity;
 
@@ -49,7 +51,7 @@ class EmailNotification extends Notification implements ShouldQueue
     public function toMail(User $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject('weather conditions')
+            ->subject(self::SUBJECT)
             ->view(
                 $this->getNotificationTemplate(),
                 [

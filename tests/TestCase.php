@@ -37,4 +37,19 @@ abstract class TestCase extends BaseTestCase
         $property->setAccessible(true);
         $property->setValue($model, $original);
     }
+
+    /**
+     * For setting private or protected property of an object
+     * @param mixed $object
+     * @param mixed $property
+     * @param mixed $value
+     * @throws ReflectionException
+     */
+    public function setProperty(mixed $object, mixed $property, mixed $value): void
+    {
+        $reflection = new ReflectionClass($object);
+        $reflectionProperty = $reflection->getProperty($property);
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue($object, $value);
+    }
 }
